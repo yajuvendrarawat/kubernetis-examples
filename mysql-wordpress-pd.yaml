@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql-wordpress-pd
+spec:
+  destination:
+    namespace: mysql-wordpress-pd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: mysql-wordpress-pd
+    repoURL: https://github.com/yajuvendrarawat/kubernetis-examples
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+  sync:
+    comparedTo:
+      destination:
+        namespace: mysql-wordpress-pd
+        server: https://kubernetes.default.svc
+      source:
+        path: mysql-wordpress-pd
+        repoURL: https://github.com/yajuvendrarawat/kubernetis-examples
+        targetRevision: main
